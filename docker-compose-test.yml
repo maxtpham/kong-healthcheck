@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  khc-net:
+    external: true
+
+services:
+  nginx:
+    image: nginx:alpine
+    networks:
+      - khc-net
+    deploy:
+      restart_policy:
+        condition: on-failure
+  httpd:
+    image: httpd:alpine
+    networks:
+      - khc-net
+    deploy:
+      restart_policy:
+        condition: on-failure
