@@ -38,9 +38,12 @@ services:
     networks:
       - khc-net
     deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 2s
+      mode: replicated
+      replicas: 0
+    # deploy:
+    #   restart_policy:
+    #     condition: on-failure
+    #     delay: 2s
   server:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
     user: "${KONG_USER:-kong}"
