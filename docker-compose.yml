@@ -1,0 +1,20 @@
+version: '3'
+
+networks:
+  khc-net:
+    external: true
+
+services:
+  master:
+    image: ${DOCKER_REGISTRY}khc-master:dev
+    build:
+      context: .
+      dockerfile: khc-master/Dockerfile
+    networks:
+      - khc-net
+    deploy:
+      mode: replicated
+    volumes:
+      - ./khc-master:/app:rw
+      - /app/config/
+      - /app/node_modules/
