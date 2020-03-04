@@ -24,10 +24,17 @@ docker container ls
 
 # create test services (nginx & httpd)
 ./test-deploy.sh
-
 # map Kong to test services
 # - http://localhost:8000/nginx
 # - http://localhost:8000/httpd
 ./test-services.sh
+
+
+# create KHC services (master & worker)
+./khc-deploy.sh
+# map Kong to test services
+# - http://localhost:8000/khc-master
+# - http://localhost:8000/khc-worker
+./khc-services.sh
 
 ```

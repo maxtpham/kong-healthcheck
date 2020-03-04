@@ -15,6 +15,7 @@ RUN npm install && \
     rm -rf /var/cache/apk/*
 COPY khc-master/config/development-docker.json ./config/development.json
 VOLUME [ "/app" ]
+ENV PORT=80
 EXPOSE 80
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
