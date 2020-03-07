@@ -8,6 +8,9 @@ cd bin/
 # init swarm mode for local docker
 docker swarm init
 
+# deploy the portainer at http://localhost:9000
+./portainer.sh
+
 # create khc-net network
 ./network.sh
 
@@ -28,7 +31,6 @@ docker container ls
 # - http://localhost:8000/nginx
 # - http://localhost:8000/httpd
 ./test-services.sh
-
 
 # create KHC services (master & worker)
 ./khc-deploy.sh
