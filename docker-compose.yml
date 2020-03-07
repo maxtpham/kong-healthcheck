@@ -21,3 +21,20 @@ services:
       - ./khc-master:/app:rw
       - /app/config/
       - /app/node_modules/
+      
+  worker:
+    image: khc-worker:dev
+    build:
+      context: .
+      dockerfile: khc-worker/Dockerfile
+    networks:
+      - khc-net
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 2
+    volumes:
+      - ./khc-worker:/app:rw
+      - /app/config/
+      - /app/node_modules/

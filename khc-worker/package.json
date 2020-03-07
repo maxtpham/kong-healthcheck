@@ -1,0 +1,45 @@
+{
+  "name": "@thanhptr/khc-worker",
+  "version": "1.0.0",
+  "description": "Kong-Healthcheck Worker",
+  "main": "index.js",
+  "files": [
+    "bin",
+    "config",
+    "*.sh"
+  ],
+  "scripts": {
+    "clean": "rimraf bin/*",
+    "build": "npm run clean && tsc",
+    "b": "npm run build",
+    "debug": "ts-node --nolazy --inspect-brk=5858 src/index.ts",
+    "start": "if-env NODE_ENV=production && npm run start:prd || npm run start:dev",
+    "start:dev": "cross-env-shell NODE_ENV=development \"nodemon --watch src/ --watch swagger/ --watch config/ --exec ts-node src/index.ts\"",
+    "start:prd": "cross-env-shell NODE_ENV=production \"node bin/src/index.js\"",
+    "test": "if-env NODE_ENV=production && npm run test:prd || npm run test:dev",
+    "test:dev": "cross-env-shell NODE_ENV=development \"ts-node tests/index.ts\"",
+    "test:prd": "cross-env-shell NODE_ENV=production \"node bin/tests/index.js\""
+  },
+  "keywords": [],
+  "author": "thanhptr",
+  "license": "UNLICENSED",
+  "repository": {
+    "url": "https://github.com/thanhptr/kong-healthcheck"
+  },
+  "devDependencies": {
+    "@types/config": "0.0.36",
+    "@types/debug": "^4.1.5",
+    "@types/express": "^4.17.2",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "config": "^3.3.0",
+    "cross-env": "^7.0.0",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2"
+  }
+}
