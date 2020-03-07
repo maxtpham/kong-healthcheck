@@ -7,13 +7,13 @@ RUN apk update && \
     pip install --upgrade pip setuptools && \
     mkdir /app && mkdir /app/config
 WORKDIR /app
-COPY khc-worker/package.json .
+COPY khc-master/package.json .
 # node_modules & cleanup
 RUN npm install && \
     apk del build-dependencies && \
     rm -r /root/.cache && \
     rm -rf /var/cache/apk/*
-COPY khc-worker/config/development-docker.json ./config/development.json
+COPY khc-master/config/development-docker.json ./config/development.json
 VOLUME [ "/app" ]
 ENV PORT=80
 EXPOSE 80

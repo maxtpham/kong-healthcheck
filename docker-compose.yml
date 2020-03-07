@@ -10,6 +10,8 @@ services:
     build:
       context: .
       dockerfile: khc-master/Dockerfile
+    environment:
+      KONG_ADMIN_URL: http://kong_server:8001
     networks:
       - khc-net
     deploy:
@@ -27,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: khc-worker/Dockerfile
+    environment:
+      MASTER_URL: http://master
     networks:
       - khc-net
     deploy:
