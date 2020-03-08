@@ -13,7 +13,7 @@ export function start(): void {
 }
 
 function execute(): void {
-    request.post(MASTER_URL, { body: NAME }, (err, res, body) => {
-        console.log(err, res, body);
+    request.post(MASTER_URL, { body: { name: NAME }, json: true }, (err, res, body) => {
+        console.log(err, body);
     });
 }

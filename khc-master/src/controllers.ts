@@ -5,6 +5,6 @@ export async function get_healthz(req: express.Request, res: express.Response): 
 }
 
 export async function post_worker(req: express.Request, res: express.Response): Promise<void> {
-    console.log(req.body);
+    console.log(JSON.stringify(req.body));
     res.send('OK').status(200);
 }
