@@ -12,8 +12,12 @@ export function start(): void {
     }
 }
 
+interface IWorkerConfig {
+    name: string;
+}
+
 function execute(): void {
-    request.post(MASTER_URL, { body: { name: NAME }, json: true }, (err, res, body) => {
+    request.post(MASTER_URL, { body: <IWorkerConfig>{ name: NAME }, json: true }, (err, res, body) => {
         console.log(err, body);
     });
 }
