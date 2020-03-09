@@ -1,0 +1,13 @@
+{
+    "files.exclude": {
+        "**/node_modules/": true,
+        "**/.vscode/": true,
+        "**/package-lock.json": true,
+        "**/.gitkeep": true,
+        "**/*.css.d.ts": true,
+        "**/*.sass.d.ts": true,
+        "**/*.scss.d.ts": true,
+        "bin/": true,
+        ".gitignore": true
+    }
+}
