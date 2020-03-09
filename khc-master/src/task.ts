@@ -1,25 +1,29 @@
 import * as os from 'os';
-import * as request from 'request'
-import { IKongUpstream } from './interfaces';
+import * as needle from 'needle'
+import * as kong from './kong';
+import state from './state';
 
 export const NAME: string = os.hostname();
-export const KONG_ADMIN_URL: string = process.env.KONG_ADMIN_URL;
+export const KONG_ADMIN_UPSTREAMS_URL: string = process.env.KONG_ADMIN_URL + '/upstreams';
 
-export function start(): void {
+export async function start(): Promise<void> {
     try {
-        execute();
+        await execute();
     } finally {
         setTimeout(start, 1000 * 10);
     }
 }
 
-function execute(): void {
-    request.get(KONG_ADMIN_URL + '/upstreams', (err, res, body) => {
-        if (!err) {
-            const upstreams: IKongUpstream = JSON.parse(body);
-            console.log(upstreams.data.map(o => o.name));
-        } else {
-            console.error(err)
+async function execute(): Promise<void> {
+    try {
+        const upstreamsRes =  await needle('get', KONG_ADMIN_UPSTREAMS_URL);
+        if (upstreamsRes.statusCode === 200) {
+            const upstreams: kong.IUpstream = upstreamsRes.body;
+            if (state.jobs.upstreams.length != upstreams.data.length) {
+                state.jobs.upstreams = upstreams.data.map(o => o.name);
+            }
         }
-    });
+    } catch (err) {
+        console.error('Error while executing the background task', err);
+    }
 }
