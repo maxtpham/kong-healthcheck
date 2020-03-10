@@ -16,9 +16,19 @@ interface IWorkerConfig {
     name: string;
 }
 
+interface IWorkerJob {
+    /** its assigned upstreams healthchecks */
+    upstreams: string[];
+}
+
 async function execute(): Promise<void> {
-    await needle('get', MASTER_URL, {  });
-    request.post(MASTER_URL, { body: <IWorkerConfig>{ name: NAME }, json: true }, (err, res, body) => {
-        console.log(err, body);
-    });
+    try {
+        const workerRes = await needle('post', MASTER_URL, <IWorkerConfig>{ name: NAME }, { json: true });
+        if (workerRes.statusCode === 200) {
+            const workerJob: IWorkerJob = workerRes.body;
+            console.log(workerRes.statusCode, workerJob);
+        }
+    } catch (err) {
+        console.error('Error while executing the background task', (<Error>err).message || '');
+    }
 }

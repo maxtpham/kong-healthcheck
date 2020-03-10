@@ -16,7 +16,7 @@ export async function start(): Promise<void> {
 
 async function execute(): Promise<void> {
     try {
-        const upstreamsRes =  await needle('get', KONG_ADMIN_UPSTREAMS_URL);
+        const upstreamsRes = await needle('get', KONG_ADMIN_UPSTREAMS_URL);
         if (upstreamsRes.statusCode === 200) {
             const upstreams: kong.IUpstream = upstreamsRes.body;
             if (state.jobs.upstreams.length != upstreams.data.length) {

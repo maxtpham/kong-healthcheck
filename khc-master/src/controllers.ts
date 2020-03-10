@@ -2,13 +2,13 @@ import * as express from 'express';
 import state, { IWorkerRequest, registerWorker, pingWorker } from './state';
 
 export async function get_healthz(req: express.Request, res: express.Response): Promise<void> {
-    res.send('OK').status(200);
+    res.status(200).send('OK');
 }
 
 export async function post_worker(req: express.Request, res: express.Response): Promise<void> {
     const workerReq: IWorkerRequest = req.body;
     if (!workerReq || !workerReq.name) {
-        res.send('Not Found').status(404);
+        res.status(404).send('Not Found');
     } else {
         if (!state.workers[workerReq.name]) {
             registerWorker(workerReq.name);
@@ -16,10 +16,10 @@ export async function post_worker(req: express.Request, res: express.Response): 
             pingWorker(workerReq.name);
         }
         if (!state.workers[workerReq.name].updated) {
-            res.send('OK').status(204); // no content
+            res.status(204).send('OK'); // no content
         } else {
             state.workers[workerReq.name].updated = false;
-            res.send(state.workers[workerReq.name].job).status(200);
+            res.status(200).send(state.workers[workerReq.name].job);
         }
     }
 }
