@@ -37,7 +37,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "config": "^3.3.0",
+    "config": "^3.3.8",
     "cross-env": "^7.0.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
